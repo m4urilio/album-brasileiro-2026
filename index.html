@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Álbum Brasileiro 2026 — Complete Seu Álbum em Casa</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #07132b;
+      --bg2:    #0b1735;
+      --bg3:    #040b1d;
+      --yellow: #ffd400;
+      --green:  #00ff88;
+      --white:  #ffffff;
+      --muted:  #bfc6d4;
+      --radius: 8px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      background: var(--yellow);
+      color: #000;
+      font-size: .76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .top-bar-track {
+      display: inline-flex;
+      gap: 48px;
+      animation: marquee 22s linear infinite;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .top-bar-item::before { content: '⚽  '; }
+
+    /* ── SHARED ── */
+    section { padding: 80px 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    .badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: #000;
+      font-size: .74rem;
+      font-weight: 700;
+      padding: 5px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 22px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -.5px;
+      margin-bottom: 16px;
+    }
+    .hy { color: var(--yellow); }
+    .hg { color: var(--green); }
+
+    .btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: #000;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 24px rgba(255,212,0,.35);
+      letter-spacing: .3px;
+      font-family: inherit;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,212,0,.5); }
+    .btn.lg  { font-size: 1.1rem; padding: 18px 40px; }
+    .btn.xl  { font-size: 1.15rem; padding: 20px 48px; width: 100%; max-width: 500px; display: block; margin: 0 auto; }
+    .btn.full { width: 100%; display: block; text-align: center; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #07132b 0%, #0b1735 55%, #040b1d 100%);
+      padding: 80px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(255,212,0,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-headline {
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 22px;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+    }
+    .hero-mockup {
+      width: 220px;
+      height: 390px;
+      margin: 44px auto;
+      border: 3px solid #00d4ff;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #0d2050, #0a1840);
+      box-shadow: 0 0 40px rgba(0,212,255,.4), 0 0 80px rgba(0,212,255,.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 3.5rem;
+    }
+    .hero-mockup span { font-size: .8rem; color: var(--muted); font-weight: 600; }
+
+    /* ── STICKERS SHOWCASE ── */
+    .showcase { background: var(--bg2); text-align: center; }
+    .sticker-gallery {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 28px 4px 12px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .sticker-card {
+      flex-shrink: 0;
+      width: 118px;
+      background: linear-gradient(135deg, #0d2050, #182d60);
+      border: 2px solid rgba(255,212,0,.3);
+      border-radius: 10px;
+      padding: 18px 10px 14px;
+      text-align: center;
+      scroll-snap-align: start;
+      transition: transform .2s, border-color .2s;
+    }
+    .sticker-card:hover { transform: translateY(-5px); border-color: var(--yellow); }
+    .sticker-flag  { font-size: 2.6rem; display: block; margin-bottom: 8px; }
+    .sticker-name  { font-size: .75rem; font-weight: 700; color: var(--yellow); text-transform: uppercase; }
+    .sticker-sub   { font-size: .64rem; color: var(--muted); margin-top: 3px; }
+    .sticker-num   {
+      display: inline-block;
+      background: var(--yellow);
+      color: #000;
+      font-size: .6rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-top: 7px;
+    }
+
+    /* ── BENEFITS ── */
+    .benefits { text-align: center; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 40px 0;
+    }
+    .benefit-card {
+      background: var(--bg2);
+      border: 1px solid rgba(255,212,0,.14);
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: left;
+      transition: border-color .2s, transform .2s;
+    }
+    .benefit-card:hover { border-color: rgba(255,212,0,.4); transform: translateY(-3px); }
+    .benefit-icon  { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .benefit-title {
+      font-size: .88rem;
+      font-weight: 800;
+      color: var(--yellow);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      letter-spacing: .3px;
+    }
+    .benefit-desc { font-size: .84rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── SOCIAL PROOF ── */
+    .social-proof { background: var(--bg2); text-align: center; }
+    .stars        { color: var(--yellow); font-size: 1.4rem; margin-bottom: 6px; }
+    .rating-text  { font-size: .84rem; color: var(--muted); margin-bottom: 32px; }
+    .testimonials-track {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 12px;
+    }
+    .t-card {
+      flex-shrink: 0;
+      width: 220px;
+      height: 340px;
+      background: linear-gradient(135deg, #0d2050, #182d60);
+      border: 2px solid rgba(255,212,0,.2);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      scroll-snap-align: start;
+      gap: 10px;
+    }
+    .t-card .t-label { font-size: .75rem; color: var(--muted); font-weight: 600; }
+
+    /* ── PRICING ── */
+    .pricing { text-align: center; }
+    .pricing-card {
+      max-width: 480px;
+      margin: 40px auto 0;
+      background: #101010;
+      border: 2px solid var(--yellow);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 0 40px rgba(255,212,0,.18), 0 0 80px rgba(255,212,0,.07);
+    }
+    .pricing-badge {
+      display: inline-block;
+      background: #ff3b30;
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 20px;
+    }
+    .price-wrap    { line-height: 1; margin-bottom: 10px; }
+    .price-currency { font-size: 2rem; font-weight: 900; color: var(--yellow); vertical-align: top; margin-top: 10px; display: inline-block; }
+    .price-amount  { font-size: 4.5rem; font-weight: 900; color: var(--yellow); }
+    .price-note    { font-size: .84rem; color: var(--muted); margin-bottom: 26px; }
+    .pricing-features { list-style: none; text-align: left; margin-bottom: 28px; }
+    .pricing-features li {
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+    }
+    .pricing-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ── ORDER BUMP ── */
+    .order-bump { background: var(--bg2); text-align: center; }
+    .bump-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .bump-card {
+      background: #111;
+      border: 1.5px solid rgba(255,212,0,.28);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color .2s, transform .2s;
+    }
+    .bump-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+    .bump-img {
+      width: 78px; height: 78px;
+      background: linear-gradient(135deg, #0d2050, #182d60);
+      border-radius: 10px;
+      margin: 0 auto 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .bump-title  { font-size: .82rem; font-weight: 700; margin-bottom: 10px; line-height: 1.35; }
+    .bump-feats  { list-style: none; margin-bottom: 14px; }
+    .bump-feats li { font-size: .72rem; color: var(--muted); padding: 3px 0; }
+    .bump-feats li::before { content: '• '; color: var(--yellow); }
+    .bump-price  { font-size: 1.1rem; font-weight: 900; color: var(--yellow); margin-bottom: 12px; }
+    .btn-bump {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1.5px solid var(--yellow);
+      color: var(--yellow);
+      font-size: .78rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s, color .2s;
+    }
+    .btn-bump:hover { background: var(--yellow); color: #000; }
+
+    /* ── STATISTICS ── */
+    .statistics { text-align: center; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin: 40px 0;
+    }
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid rgba(0,255,136,.18);
+      border-radius: 12px;
+      padding: 30px 16px;
+    }
+    .stat-number { font-size: 3.2rem; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 8px; }
+    .stat-label  { font-size: .82rem; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: .5px; }
+
+    /* ── FAQ ── */
+    .faq { background: var(--bg2); }
+    .faq .section-title { text-align: center; margin-bottom: 40px; }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: #121b38;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.06);
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: .95rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-family: inherit;
+      transition: color .2s;
+    }
+    .faq-q:hover { color: var(--yellow); }
+    .faq-arrow {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border: 2px solid var(--yellow);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem;
+      color: var(--yellow);
+      transition: transform .3s;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a-inner { padding: 0 20px 18px; font-size: .88rem; color: var(--muted); line-height: 1.65; }
+    .faq-item.open .faq-a { max-height: 200px; }
+
+    /* ── FINAL CTA ── */
+    .final-cta { background: var(--bg); text-align: center; }
+    .final-desc { font-size: 1rem; color: var(--muted); margin: 14px auto 36px; max-width: 480px; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg3);
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; flex-wrap: wrap; }
+    .footer-links a { font-size: .8rem; color: #7f8898; text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy { font-size: .74rem; color: #7f8898; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .bump-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 60px 20px; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .bump-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .hero-headline { font-size: 2.4rem; }
+      .pricing-card { padding: 26px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-track">
+    <span class="top-bar-item">Coleção premium não-oficial</span>
+    <span class="top-bar-item">32 seleções nacionais</span>
+    <span class="top-bar-item">48 seleções</span>
+    <span class="top-bar-item">Envelopes oficiais sem figurinhas</span>
+    <span class="top-bar-item">Entrega digital rápida</span>
+    <span class="top-bar-item">Coleção premium não-oficial</span>
+    <span class="top-bar-item">32 seleções nacionais</span>
+    <span class="top-bar-item">48 seleções</span>
+    <span class="top-bar-item">Envelopes oficiais sem figurinhas</span>
+    <span class="top-bar-item">Entrega digital rápida</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="badge">Quero terminar meu álbum</div>
+    <h1 class="hero-headline">
+      <span class="hy">COMPLETE O ÁLBUM</span><br>
+      GASTANDO POUCO
+    </h1>
+    <p class="hero-sub">Baixe as figurinhas que estão faltando, imprima em casa e complete seu álbum sem depender de sorte em pacotinhos.</p>
+    <a href="#pricing" class="btn lg">QUERO MEU PACK AGORA &rarr;</a>
+    <div class="hero-mockup">
+      📖
+      <span>Figurinhas da Copa 2026</span>
+    </div>
+    <a href="#pricing" class="btn lg">QUERO MEU PACK AGORA &rarr;</a>
+  </div>
+</section>
+
+<!-- STICKERS SHOWCASE -->
+<section class="showcase">
+  <div class="container">
+    <h2 class="section-title">OS <span class="hg">CRAQUES</span> NO SEU ÁLBUM</h2>
+    <p style="color:var(--muted);margin-bottom:4px;">Figurinhas dos maiores astros do futebol mundial disponíveis no pack.</p>
+    <div class="sticker-gallery">
+      <div class="sticker-card">
+        <span class="sticker-flag">🇦🇷</span>
+        <div class="sticker-name">Argentina</div>
+        <div class="sticker-sub">Campeã do Mundo</div>
+        <span class="sticker-num">#ARG</span>
+      </div>
+      <div class="sticker-card">
+        <span class="sticker-flag">🇫🇷</span>
+        <div class="sticker-name">França</div>
+        <div class="sticker-sub">Vice-Campeã</div>
+        <span class="sticker-num">#FRA</span>
+      </div>
+      <div class="sticker-card">
+        <span class="sticker-flag">🇪🇸</span>
+        <div class="sticker-name">Espanha</div>
+        <div class="sticker-sub">Euro 2024</div>
+        <span class="sticker-num">#ESP</span>
+      </div>
+      <div class="sticker-card">
+        <span class="sticker-flag">🇧🇷</span>
+        <div class="sticker-name">Brasil</div>
+        <div class="sticker-sub">Em busca do Hexa</div>
+        <span class="sticker-num">#BRA</span>
+      </div>
+      <div class="sticker-card">
+        <span class="sticker-flag">🇵🇹</span>
+        <div class="sticker-name">Portugal</div>
+        <div class="sticker-sub">Favorita</div>
+        <span class="sticker-num">#POR</span>
+      </div>
+      <div class="sticker-card">
+        <span class="sticker-flag">🇩🇪</span>
+        <div class="sticker-name">Alemanha</div>
+        <div class="sticker-sub">Tradição</div>
+        <span class="sticker-num">#GER</span>
+      </div>
+    </div>
+    <br>
+    <a href="#pricing" class="btn">QUERO O PACK COMPLETO</a>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="container">
+    <h2 class="section-title"><span class="hy">BAIXOU, IMPRIMIU,</span> COMPLETOU.</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="benefit-icon">💰</span>
+        <div class="benefit-title">ECONOMIZE DE VERDADE</div>
+        <p class="benefit-desc">Economize muito comparado à compra de envelopes. Complete o álbum por uma fração do preço.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🖨️</span>
+        <div class="benefit-title">PRONTO PARA IMPRIMIR</div>
+        <p class="benefit-desc">Arquivos organizados e otimizados para impressão em qualquer impressora doméstica.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🌍</span>
+        <div class="benefit-title">TODAS AS 48 SELEÇÕES</div>
+        <p class="benefit-desc">Conteúdo completo com todas as seleções da Copa do Mundo 2026 disponíveis.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">📁</span>
+        <div class="benefit-title">TUDO ORGANIZADO</div>
+        <p class="benefit-desc">Arquivos separados por categorias para você encontrar exatamente o que precisa.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">⚡</span>
+        <div class="benefit-title">DOWNLOAD IMEDIATO</div>
+        <p class="benefit-desc">Acesso instantâneo após o pagamento. Sem espera, sem frete, sem complicação.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="benefit-icon">🔄</span>
+        <div class="benefit-title">ATUALIZAÇÕES INCLUSAS</div>
+        <p class="benefit-desc">Novas figurinhas e atualizações futuras incluídas sem nenhum custo adicional.</p>
+      </div>
+    </div>
+    <a href="#pricing" class="btn">QUERO COMPLETAR MEU ÁLBUM</a>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="container">
+    <h2 class="section-title">CLIENTES <span class="hy">IMPRIMINDO</span> E COLANDO EM CASA</h2>
+    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <p class="rating-text">Avaliações positivas de clientes satisfeitos</p>
+    <div class="testimonials-track">
+      <div class="t-card">📸<span class="t-label">Foto do álbum completo</span></div>
+      <div class="t-card">💬<span class="t-label">Print do WhatsApp</span></div>
+      <div class="t-card">🖨️<span class="t-label">Processo de impressão</span></div>
+      <div class="t-card">📱<span class="t-label">Feedback do cliente</span></div>
+      <div class="t-card">⭐<span class="t-label">Avaliação 5 estrelas</span></div>
+    </div>
+    <br><br>
+    <a href="#pricing" class="btn lg">QUERO MEU PACK AGORA &rarr;</a>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <h2 class="section-title">FECHE O ÁLBUM SEM <span class="hy">ESVAZIAR O BOLSO</span></h2>
+    <div class="pricing-card">
+      <span class="pricing-badge">PRECO DE LANCAMENTO 90% OFF</span>
+      <div class="price-wrap">
+        <span class="price-currency">R$</span><span class="price-amount">12,90</span>
+      </div>
+      <p class="price-note">Uma vez e acesso vitalicio</p>
+      <ul class="pricing-features">
+        <li>48 seleções organizadas</li>
+        <li>Todas as páginas da Copa</li>
+        <li>Alta resolução para impressão</li>
+        <li>Formato digital imediato</li>
+        <li>Garantia de satisfação</li>
+        <li>Compra 100% segura</li>
+      </ul>
+      <a href="#" class="btn full">QUERO MEU PACK AGORA</a>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER BUMP -->
+<section class="order-bump">
+  <div class="container">
+    <h2 class="section-title">LEVE JUNTO E PAGUE NO <span class="hy">MESMO PIX</span></h2>
+    <div class="bump-grid">
+      <div class="bump-card">
+        <div class="bump-img">✨</div>
+        <div class="bump-title">Figurinhas Gold e Holográficas</div>
+        <ul class="bump-feats">
+          <li>Efeito holográfico</li>
+          <li>Alta qualidade</li>
+          <li>Figurinhas raras</li>
+        </ul>
+        <div class="bump-price">+ R$ 4,90</div>
+        <button class="btn-bump">Adicionar ao pedido</button>
+      </div>
+      <div class="bump-card">
+        <div class="bump-img">⭐</div>
+        <div class="bump-title">Figurinhas Neymar Copa 2026</div>
+        <ul class="bump-feats">
+          <li>Edição especial</li>
+          <li>Pack exclusivo</li>
+          <li>Alta resolução</li>
+        </ul>
+        <div class="bump-price">+ R$ 4,90</div>
+        <button class="btn-bump">Adicionar ao pedido</button>
+      </div>
+      <div class="bump-card">
+        <div class="bump-img">📋</div>
+        <div class="bump-title">Kit de Impressão e Controle</div>
+        <ul class="bump-feats">
+          <li>Planilha de controle</li>
+          <li>Guia de impressão</li>
+          <li>Dicas de colagem</li>
+        </ul>
+        <div class="bump-price">+ R$ 4,90</div>
+        <button class="btn-bump">Adicionar ao pedido</button>
+      </div>
+      <div class="bump-card">
+        <div class="bump-img">📖</div>
+        <div class="bump-title">Álbum da Copa</div>
+        <ul class="bump-feats">
+          <li>Versão digital</li>
+          <li>Para imprimir</li>
+          <li>Layout oficial</li>
+        </ul>
+        <div class="bump-price">+ R$ 2,90</div>
+        <button class="btn-bump">Adicionar ao pedido</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS -->
+<section class="statistics">
+  <div class="container">
+    <h2 class="section-title">ECONOMIZE <span class="hy">DE VERDADE</span></h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">980</div>
+        <div class="stat-label">Figurinhas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">48</div>
+        <div class="stat-label">Seleções</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">112</div>
+        <div class="stat-label">Páginas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Dias de Garantia</div>
+      </div>
+    </div>
+    <a href="#pricing" class="btn lg">EU QUERO ESSE PACK</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <h2 class="section-title">DÚVIDAS <span class="hg">FREQUENTES</span></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Posso usar uma impressora comum?
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Sim! Os arquivos são otimizados para impressão em qualquer impressora doméstica jato de tinta ou laser. Basta usar papel adesivo ou papel comum e uma tesoura.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          As figurinhas têm o tamanho certo para colar no álbum?
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Sim! Todas as figurinhas são dimensionadas no tamanho padrão Panini (4,6 x 6,4 cm) para encaixar perfeitamente nas páginas do álbum oficial da Copa 2026.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Esse kit tem figurinhas raras também na Copa?
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Sim! O pack inclui as figurinhas comuns e também as versões especiais. Com o add-on Gold e Holográfico você ainda tem acesso às figurinhas mais raras e brilhantes.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Tem garantia e suporte?
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Sim! Oferecemos 7 dias de garantia total. Se você não ficar satisfeito por qualquer motivo, devolvemos 100% do seu dinheiro sem perguntas. Suporte via WhatsApp disponível.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="hy">CHEGA DE ENVELOPES.</span><br>
+      FECHE O ÁLBUM DE VEZ.
+    </h2>
+    <p class="final-desc">Baixe agora as figurinhas da Copa e complete seu álbum sem depender da sorte.</p>
+    <a href="#pricing" class="btn xl">QUERO MEU PACK R$ 12,90</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#">Termos de Uso</a>
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Contato</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Álbum Brasileiro 2026. Todos os direitos reservados. Produto digital não-oficial.</p>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
