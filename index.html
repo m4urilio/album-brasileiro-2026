@@ -149,41 +149,21 @@
     /* ── STICKERS SHOWCASE ── */
     .showcase { background: var(--bg2); text-align: center; }
     .sticker-gallery {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      padding: 28px 4px 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      padding: 28px 0 12px;
     }
     .sticker-card {
       flex-shrink: 0;
-      width: 118px;
-      background: linear-gradient(135deg, #0d2050, #182d60);
       border: 2px solid rgba(255,212,0,.3);
-      border-radius: 10px;
-      padding: 18px 10px 14px;
-      text-align: center;
-      scroll-snap-align: start;
+      border-radius: 12px;
+      overflow: hidden;
       transition: transform .2s, border-color .2s;
+      aspect-ratio: 3/4;
     }
     .sticker-card:hover { transform: translateY(-5px); border-color: var(--yellow); }
-    .sticker-flag  { font-size: 2.6rem; display: block; margin-bottom: 8px; }
-    .sticker-name  { font-size: .75rem; font-weight: 700; color: var(--yellow); text-transform: uppercase; }
-    .sticker-sub   { font-size: .64rem; color: var(--muted); margin-top: 3px; }
-    .sticker-num   {
-      display: inline-block;
-      background: var(--yellow);
-      color: #000;
-      font-size: .6rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 4px;
-      margin-top: 7px;
-    }
+    .sticker-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ── BENEFITS ── */
     .benefits { text-align: center; }
@@ -215,33 +195,41 @@
 
     /* ── SOCIAL PROOF ── */
     .social-proof { background: var(--bg2); text-align: center; }
-    .stars        { color: var(--yellow); font-size: 1.4rem; margin-bottom: 6px; }
-    .rating-text  { font-size: .84rem; color: var(--muted); margin-bottom: 32px; }
-    .testimonials-track {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-bottom: 12px;
+    .sp-rating { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+    .stars     { color: var(--yellow); font-size: 1.3rem; }
+    .sp-score  { font-size: 1rem; font-weight: 800; color: var(--white); }
+    .sp-base   { font-size: .84rem; color: var(--muted); }
+    .phones-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
     }
-    .t-card {
-      flex-shrink: 0;
-      width: 220px;
-      height: 340px;
-      background: linear-gradient(135deg, #0d2050, #182d60);
-      border: 2px solid rgba(255,212,0,.2);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
+    .phone-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(255,212,0,.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      aspect-ratio: 9/16;
+    }
+    .phone-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sp-notif {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      scroll-snap-align: start;
-      gap: 10px;
+      gap: 12px;
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-size: .82rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+      margin-bottom: 8px;
+      text-align: left;
     }
-    .t-card .t-label { font-size: .75rem; color: var(--muted); font-weight: 600; }
+    .sp-notif-icon { font-size: 1.4rem; }
+    .sp-notif-name { font-weight: 700; font-size: .85rem; }
+    .sp-notif-name span { font-weight: 400; color: #555; }
+    .sp-notif-action { font-size: .75rem; color: var(--green); font-weight: 600; }
 
     /* ── PRICING ── */
     .pricing { text-align: center; }
@@ -411,6 +399,8 @@
       section { padding: 60px 20px; }
       .benefits-grid { grid-template-columns: 1fr 1fr; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
+      .phones-grid { grid-template-columns: 1fr 1fr; }
+      .sticker-gallery { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 480px) {
       .benefits-grid { grid-template-columns: 1fr; }
@@ -450,8 +440,7 @@
     <p class="hero-sub">Baixe as figurinhas que estão faltando, imprima em casa e complete seu álbum sem depender de sorte em pacotinhos.</p>
     <a href="#pricing" class="btn lg">QUERO MEU PACK AGORA &rarr;</a>
     <div class="hero-mockup">
-      📖
-      <span>Figurinhas da Copa 2026</span>
+      <iframe src="https://www.youtube.com/embed/98wIZkFOS4c" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;height:100%;border-radius:20px;"></iframe>
     </div>
     <a href="#pricing" class="btn lg">QUERO MEU PACK AGORA &rarr;</a>
   </div>
@@ -463,42 +452,12 @@
     <h2 class="section-title">OS <span class="hg">CRAQUES</span> NO SEU ÁLBUM</h2>
     <p style="color:var(--muted);margin-bottom:4px;">Figurinhas dos maiores astros do futebol mundial disponíveis no pack.</p>
     <div class="sticker-gallery">
-      <div class="sticker-card">
-        <span class="sticker-flag">🇦🇷</span>
-        <div class="sticker-name">Argentina</div>
-        <div class="sticker-sub">Campeã do Mundo</div>
-        <span class="sticker-num">#ARG</span>
-      </div>
-      <div class="sticker-card">
-        <span class="sticker-flag">🇫🇷</span>
-        <div class="sticker-name">França</div>
-        <div class="sticker-sub">Vice-Campeã</div>
-        <span class="sticker-num">#FRA</span>
-      </div>
-      <div class="sticker-card">
-        <span class="sticker-flag">🇪🇸</span>
-        <div class="sticker-name">Espanha</div>
-        <div class="sticker-sub">Euro 2024</div>
-        <span class="sticker-num">#ESP</span>
-      </div>
-      <div class="sticker-card">
-        <span class="sticker-flag">🇧🇷</span>
-        <div class="sticker-name">Brasil</div>
-        <div class="sticker-sub">Em busca do Hexa</div>
-        <span class="sticker-num">#BRA</span>
-      </div>
-      <div class="sticker-card">
-        <span class="sticker-flag">🇵🇹</span>
-        <div class="sticker-name">Portugal</div>
-        <div class="sticker-sub">Favorita</div>
-        <span class="sticker-num">#POR</span>
-      </div>
-      <div class="sticker-card">
-        <span class="sticker-flag">🇩🇪</span>
-        <div class="sticker-name">Alemanha</div>
-        <div class="sticker-sub">Tradição</div>
-        <span class="sticker-num">#GER</span>
-      </div>
+      <div class="sticker-card"><img src="img/Screenshot_1.png" alt="Figurinha 1"></div>
+      <div class="sticker-card"><img src="img/Screenshot_2.png" alt="Figurinha 2"></div>
+      <div class="sticker-card"><img src="img/Screenshot_3.png" alt="Figurinha 3"></div>
+      <div class="sticker-card"><img src="img/Screenshot_4.png" alt="Figurinha 4"></div>
+      <div class="sticker-card"><img src="img/Screenshot_5.png" alt="Figurinha 5"></div>
+      <div class="sticker-card"><img src="img/Screenshot_9.png" alt="Figurinha 6"></div>
     </div>
     <br>
     <a href="#pricing" class="btn">QUERO O PACK COMPLETO</a>
@@ -548,17 +507,35 @@
 <!-- SOCIAL PROOF -->
 <section class="social-proof">
   <div class="container">
-    <h2 class="section-title">CLIENTES <span class="hy">IMPRIMINDO</span> E COLANDO EM CASA</h2>
-    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <p class="rating-text">Avaliações positivas de clientes satisfeitos</p>
-    <div class="testimonials-track">
-      <div class="t-card">📸<span class="t-label">Foto do álbum completo</span></div>
-      <div class="t-card">💬<span class="t-label">Print do WhatsApp</span></div>
-      <div class="t-card">🖨️<span class="t-label">Processo de impressão</span></div>
-      <div class="t-card">📱<span class="t-label">Feedback do cliente</span></div>
-      <div class="t-card">⭐<span class="t-label">Avaliação 5 estrelas</span></div>
+    <div class="badge">Quem comprou aprovou</div>
+    <h2 class="section-title">CLIENTES IMPRIMINDO E <span class="hy">COLANDO EM CASA</span></h2>
+    <div class="sp-rating">
+      <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="sp-score">4.9/5</span>
+      <span class="sp-base">&middot; baseado em compras verificadas</span>
     </div>
-    <br><br>
+    <div class="phones-grid">
+      <div class="phone-frame">
+        <img src="img/dep-fig1.png" alt="Depoimento 1">
+      </div>
+      <div class="phone-frame">
+        <img src="img/dep-fig2.png" alt="Depoimento 2">
+      </div>
+      <div class="phone-frame">
+        <img src="img/dep-fig3.png" alt="Depoimento 3">
+      </div>
+      <div class="phone-frame">
+        <img src="img/dep-fig4 (1).png" alt="Depoimento 4">
+      </div>
+    </div>
+    <div class="sp-notif">
+      <div class="sp-notif-icon">🛒</div>
+      <div>
+        <div class="sp-notif-name">Sandra L. <span>de Natal, RN</span></div>
+        <div class="sp-notif-action">Comprou o pack &middot; há poucos minutos</div>
+      </div>
+    </div>
+    <br>
     <a href="#pricing" class="btn lg">QUERO MEU PACK AGORA &rarr;</a>
   </div>
 </section>
@@ -570,7 +547,7 @@
     <div class="pricing-card">
       <span class="pricing-badge">PRECO DE LANCAMENTO 90% OFF</span>
       <div class="price-wrap">
-        <span class="price-currency">R$</span><span class="price-amount">12,90</span>
+        <span class="price-currency">R$</span><span class="price-amount">17,99</span>
       </div>
       <p class="price-note">Uma vez e acesso vitalicio</p>
       <ul class="pricing-features">
@@ -581,63 +558,11 @@
         <li>Garantia de satisfação</li>
         <li>Compra 100% segura</li>
       </ul>
-      <a href="#" class="btn full">QUERO MEU PACK AGORA</a>
+      <a href="https://ggcheckout.app/checkout/v2/umUL91QSmsw48IwSkyAz" class="btn full">QUERO MEU PACK AGORA</a>
     </div>
   </div>
 </section>
 
-<!-- ORDER BUMP -->
-<section class="order-bump">
-  <div class="container">
-    <h2 class="section-title">LEVE JUNTO E PAGUE NO <span class="hy">MESMO PIX</span></h2>
-    <div class="bump-grid">
-      <div class="bump-card">
-        <div class="bump-img">✨</div>
-        <div class="bump-title">Figurinhas Gold e Holográficas</div>
-        <ul class="bump-feats">
-          <li>Efeito holográfico</li>
-          <li>Alta qualidade</li>
-          <li>Figurinhas raras</li>
-        </ul>
-        <div class="bump-price">+ R$ 4,90</div>
-        <button class="btn-bump">Adicionar ao pedido</button>
-      </div>
-      <div class="bump-card">
-        <div class="bump-img">⭐</div>
-        <div class="bump-title">Figurinhas Neymar Copa 2026</div>
-        <ul class="bump-feats">
-          <li>Edição especial</li>
-          <li>Pack exclusivo</li>
-          <li>Alta resolução</li>
-        </ul>
-        <div class="bump-price">+ R$ 4,90</div>
-        <button class="btn-bump">Adicionar ao pedido</button>
-      </div>
-      <div class="bump-card">
-        <div class="bump-img">📋</div>
-        <div class="bump-title">Kit de Impressão e Controle</div>
-        <ul class="bump-feats">
-          <li>Planilha de controle</li>
-          <li>Guia de impressão</li>
-          <li>Dicas de colagem</li>
-        </ul>
-        <div class="bump-price">+ R$ 4,90</div>
-        <button class="btn-bump">Adicionar ao pedido</button>
-      </div>
-      <div class="bump-card">
-        <div class="bump-img">📖</div>
-        <div class="bump-title">Álbum da Copa</div>
-        <ul class="bump-feats">
-          <li>Versão digital</li>
-          <li>Para imprimir</li>
-          <li>Layout oficial</li>
-        </ul>
-        <div class="bump-price">+ R$ 2,90</div>
-        <button class="btn-bump">Adicionar ao pedido</button>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- STATISTICS -->
 <section class="statistics">
@@ -710,7 +635,7 @@
       FECHE O ÁLBUM DE VEZ.
     </h2>
     <p class="final-desc">Baixe agora as figurinhas da Copa e complete seu álbum sem depender da sorte.</p>
-    <a href="#pricing" class="btn xl">QUERO MEU PACK R$ 12,90</a>
+    <a href="#pricing" class="btn xl">QUERO MEU PACK R$ 17,99</a>
   </div>
 </section>
 
